@@ -1,0 +1,118 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+            <div class="card-body">
+                <form method="POST" action="{% url 'send_feedback' %}" >
+                    {% csrf_token %}
+
+                    <div class="page-header">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <h3 class="page-title">Send Feedback</h3>
+                                <ul class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="{% url 'staff_home' %}">Dashboard</a></li>
+                                    <li class="breadcrumb-item active">Feedback</li>
+                                </ul>
+                            </div>
+                            <div class="col-auto text-right float-right ml-auto">
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ViewlAllFeedbacksModalCenter">
+                                    View all Feedbacks
+                                </button>
+                            </div>                          
+                            
+                        </div>
+                        {% include 'includes/messages.html' %}
+                        
+                    </div>
+
+                    
+                    <div class='row'>   
+                        <div class="col-sm-11">
+                            <div class="form-group">
+                                <label>Subject</label>
+                                <input type='text' class="form-control" name='subject' required>
+                            </div>
+                        </div>                   
+                        
+                    
+                        <div class="col-sm-11">
+                            <div class="form-group">
+                                <label>Feedback Message</label>
+                                <textarea class="form-control" name='message' rows=10 required></textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="col-12">
+                        <button type="submit" class="btn btn-primary">Send</button>
+                        </div>
+                    </div>
+                    
+                </form>
+            </div>
+            </div>
+        </div>
+    </div>
+
+{% comment %} MODALS {% endcomment %}
+
+<div class="modal fade" id="ViewlAllFeedbacksModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">My Feedbacks</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card card-table">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                            <table id="table_id" class="table table-hover table-center mb-0">
+                                <thead>
+                                    <tr>    
+                                        <th>Date</th> 
+                                        <th>Subject</th>                                  
+                                        <th>Message</th>                                                             
+                                        <th >Reply</th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for feedback in feedbacks %}
+                                        <tr>
+                                            <td>{{feedback.created_at}}</td> 
+                                            <td>{{feedback.subject}}</td>
+                                            <td>{{feedback.message}}</td>    
+                                            <td>{{feedback.reply}}</td>                                                                                
+                                            
+                                        </tr>
+                                    {% endfor %} 
+                                    
+                                </tbody>
+                            </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+{% endblock content %}
+

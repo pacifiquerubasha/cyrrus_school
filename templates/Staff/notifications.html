@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block content%}
+    <div class="content container-fluid">
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="page-title">Notifications</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'hod_home' %}">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Notifications</li>
+                    </ul>
+                </div>
+                
+                
+            </div>
+            {% include 'includes/messages.html' %}
+        </div>
+        <div class="row">
+        <div class="col-sm-12">
+            <div class="card card-table">
+                <div class="card-body">
+                    <div class="table-responsive">
+                    <table id="table_id" class="table table-hover table-center mb-0 ">
+                        <thead>
+                            <tr>
+                                <th>Message</th>
+                                <th class="text-right">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for staff_notification in staff_notifications %}
+                                <tr>
+                                    <td style='max-width:10rem; text-overflow:ellipsis; overflow:hidden'>{{staff_notification.message}}</td>
+                                                                    
+                                    <td class="text-right">
+                                    <div class="actions">
+                                        {% if staff_notification.status == 0 %}
+                                        <a href="{% url 'mark_done' status=staff_notification.id %}" class="badge badge-success p-2">MARK AS DONE</a>        
+                                        {% elif staff_notification.status == 1 %}
+                                        <span class="badge badge-secondary p-2">DONE</span>        
+                                        {% endif %}
+                                    </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+{% endblock %}

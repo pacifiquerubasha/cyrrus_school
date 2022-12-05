@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="content container-fluid">
+    <div class="page-header">
+       <div class="row">
+          <div class="col-sm-12">
+             <h3 class="page-title">Student Details</h3>
+             <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'view_students' %}">Student</a></li>
+                <li class="breadcrumb-item active">Student Details</li>
+             </ul>
+          </div>
+       </div>
+    </div>
+    <div class="card">
+       <div class="card-body">
+          <div class="row">
+             <div class="col-md-12">
+                <div class="about-info">
+                   <h4>About Me</h4>
+                   <div class="media mt-3">
+                      <img src="/{{student.admin.profile_pic}}" class="mr-3" alt="...">
+                      <div class="media-body">
+                         <ul>
+                            <li>
+                               <span class="title-span">Full Name : </span>
+                               <span class="info-span">{{student.admin.first_name}} {{student.admin.last_name}}</span>
+                            </li>
+                            <li>
+                                <span class="title-span">Email : </span>
+                                <span class="info-span"><a href="mailto:{{student.admin.email}}" class="__cf_email__" data-cfemail="7216131b010b32151f131b1e5c111d1f">{{student.admin.email}}</a></span>
+                             </li>
+                            <li>
+                               <span class="title-span">Course: </span>
+                               <span class="info-span">{{student.course_id.name}}</span>
+                            </li>
+                            <li>
+                               <span class="title-span">Gender : </span>
+                               <span class="info-span">{{student.gender}}</span>
+                            </li>
+                            
+                            <li>
+                               <span class="title-span">Session : </span>
+                               <span class="info-span">{{student.session_year.session_start}} To <td>{{student.session_year.session_end}}</span>
+                            </li>
+                            <li>
+                               <span class="title-span">Created At : </span>
+                               <span class="info-span">{{student.created_at}}</span>
+                            </li>
+
+                            <li>
+                                <span class="title-span">Updated At : </span>
+                                <span class="info-span">{{student.updated_at}}</span>
+                             </li>
+                         </ul>
+                      </div>
+                   </div>
+                   
+                   <div class="row mt-2">
+                      <div class="col-md-12">
+                         <h5>Permanent Address</h5>
+                         <p>{{student.address}}</p>
+                      </div>
+                   </div>
+                   <div class="row mt-2">
+                      <div class="col-md-12">
+                         <h5>Present Address</h5>
+                         <p>{{student.address}}</p>
+                      </div>
+                   </div>
+                </div>
+             </div>
+          </div>
+          
+          <div class="row mt-2">
+             <div class="col-md-12">
+                <div class="skill-info">
+                   <h4>Settings</h4>
+                   <form>
+                      <div class="row mt-3">
+                         <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                               <label>Username</label>
+                               <input type="text" class="form-control">
+                            </div>
+                         </div>
+                         <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                               <label>Current Password</label>
+                               <input type="password" class="form-control">
+                            </div>
+                         </div>
+                         <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                               <label>New Password</label>
+                               <input type="password" class="form-control">
+                            </div>
+                         </div>
+                         <div class="col-12">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                         </div>
+                      </div>
+                   </form>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+ </div>
+
+{% endblock %}

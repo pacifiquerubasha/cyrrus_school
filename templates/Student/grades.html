@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block content%}
+    <div class="content container-fluid">
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="page-title">Grades List</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'student_home' %}">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Grades</li>
+                    </ul>
+                </div>
+                <div class="col-auto text-right float-right ml-auto">
+                    <a href="{% url 'student_download_grades' %}" class="btn btn-outline-primary mr-2"><i class="fas fa-download"></i> Download</a>
+                </div>
+                
+            </div>
+            {% include 'includes/messages.html' %}
+        </div>
+        <div class="row">
+        <div class="col-sm-12">
+            <div class="card card-table">
+                <div class="card-body">
+                    <div class="table-responsive">
+                    <table id="table_id" class="table table-hover table-center mb-0">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Student</th>                                
+                                <th>Course</th>
+                                <th>Subject</th>
+                                <th>Grade</th>
+                                <th>Possible Marks</th>
+                                <th>Release Date</th>
+                                <th>Update Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for grade in grades %}
+                                <tr>
+                                    <td>{{grade.id}}</td>                                    
+                                    <td>{{grade.student.admin.first_name}} {{grade.student.admin.last_name}}</td>
+                                    <td>{{grade.course.name}}</td>
+                                    <td>{{grade.subject.name}}</td>
+                                    <td>{{grade.grade}}</td>
+                                    <td>{{grade.possible_marks}}</td>
+                                    <td>{{grade.created_at|date:"D, d M, Y"}}</td>
+                                    <td>{{grade.updated_at|date:"D, d M, Y"}}</td>                                    
+                                    
+                                </tr>
+                            {% endfor %} 
+                            
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+
+
+
+{% endblock %}

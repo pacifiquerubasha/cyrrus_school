@@ -1,0 +1,123 @@
+<script type='text/javascript'>
+
+
+$(document).ready(function() {
+
+	 // Area chart
+	
+	if ($('#database_data').length > 0) {
+        var options = {
+            series: [{{total_students}}, {{total_staff}}, {{total_courses}}, {{total_subjects}}],
+            chart: {
+            width: '100%',
+            type: 'donut',
+          },
+
+          labels: ['Students', 'Staff', 'Courses', 'Subjects'],
+          plotOptions: {
+            pie: {
+              startAngle: -90,
+              endAngle: 270
+            }
+          },
+          dataLabels: {
+            enabled: true
+          },
+          fill: {
+            type: 'gradient',
+          },
+          legend: {
+            formatter: function(val, opts) {
+              return val + " - " + opts.w.globals.series[opts.seriesIndex]
+            }
+          },
+          
+          responsive: [{
+            breakpoint: 480,
+            options: {
+              chart: {
+                width: '100%'
+              },
+              legend: {
+                position: 'bottom'
+              }
+            }
+          }]
+          };
+  
+          var chart = new ApexCharts(document.querySelector("#database_data"), options);
+          chart.render();
+	} 
+
+
+	// Bar chart
+	
+	if ($('#gender_distribution').length > 0) {
+	var optionsBar = {
+		chart: {
+			type: 'bar',			
+			width: '100%',
+			stacked: true,
+			toolbar: {
+				show: false
+			},
+		},
+		dataLabels: {
+			enabled: false
+		},
+		plotOptions: {
+			bar: {
+				columnWidth: '45%',
+			}
+		},
+		series: [{
+			name: "Boys",
+			color: '#fdbb38',
+			data: [{{total_boys}}],
+		}, {
+			name: "Girls",
+			color: '#19affb',
+			data: [{{total_girls}}],
+		}],
+		labels: ['Distribution'],
+		xaxis: {
+			labels: {
+				show: false
+			},
+			axisBorder: {
+				show: false
+			},
+			axisTicks: {
+				show: false
+			},
+		},
+		yaxis: {
+			axisBorder: {
+				show: false
+			},
+			axisTicks: {
+				show: false
+			},
+			labels: {
+				style: {
+					colors: '#777'
+				}
+			}
+		},
+		title: {
+			text: '',
+			align: 'left',
+			style: {
+				fontSize: '18px'
+			}
+		}
+
+	}
+  
+	var chartBar = new ApexCharts(document.querySelector('#gender_distribution'), optionsBar);
+	chartBar.render();
+	}
+  
+});
+
+</script>

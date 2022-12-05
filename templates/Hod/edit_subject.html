@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+            <div class="card-body">
+                <form method="POST" action="{% url 'update_subject' %}" >
+                    {% csrf_token %}
+                        <div class="col-12">
+                            <h5 class="form-title"><span>Edit Subject</span></h5>
+                        </div>
+
+                        {% include 'includes/messages.html' %}
+
+                    <div class="row">   
+                        <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                                <label>Subject Name</label>
+                                <input type="text" class="form-control" name="subject_name" value="{{subject.name}}" required>
+                                <input type="text" class="form-control" name="subject_id" value="{{subject.id}}" hidden>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                                <label>Course</label>
+                                <select class="form-control" name="course_id" required>
+                                    <option>Select Course</option>
+                                    {% for course in courses%}
+                                        <option value="{{course.id}}">{{course.name}}</option>
+                                    {% endfor %}
+                                    
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                                <label>Staff</label>
+                                <select class="form-control" name="staff_id" required>
+                                    <option>Select Staff</option>
+                                    {% for staff in staffs%}
+                                        <option value="{{staff.admin.id}}">{{staff.admin.first_name}}&nbsp;{{staff.admin.last_name}}</option>
+                                    {% endfor %}
+                                    
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="col-12">
+                        <button type="submit" class="btn btn-primary">Update Subject</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock content %}

@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+            <div class="card-body">
+                <form method="POST" action="{% url 'leave_application' %}" >
+                    {% csrf_token %}
+
+                    <div class="page-header">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <h3 class="page-title">Leave Appliction</h3>
+                                <ul class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="{% url 'staff_home' %}">Dashboard</a></li>
+                                    <li class="breadcrumb-item active">Apply</li>
+                                </ul>
+                            </div>
+                            <div class="col-auto text-right float-right ml-auto">
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ViewlAllApplicationsModalCenter">
+                                    View all applicarions
+                                </button>
+                            </div>                          
+                            
+                        </div>
+                        {% include 'includes/messages.html' %}
+                        
+                    </div>
+
+                    
+                    <div class='row'>                      
+                        
+                        
+                        <div class="col-sm-11">
+                            <div class="form-group">
+                                <label>Leave Date</label>
+                                <input type="date" class="form-control" name="leave_date" required>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-11">
+                            <div class="form-group">
+                                <label>Leave Message</label>
+                                <textarea class="form-control" name='leave_message' rows=5 required></textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="col-12">
+                        <button type="submit" class="btn btn-primary">Apply</button>
+                        </div>
+                    </div>
+                    
+                </form>
+            </div>
+            </div>
+        </div>
+    </div>
+
+{% comment %} MODALS {% endcomment %}
+
+<div class="modal fade" id="ViewlAllApplicationsModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">My Leave Notifications</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card card-table">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                            <table id="table_id" class="table table-hover table-center mb-0">
+                                <thead>
+                                    <tr>    
+                                        <th>Date</th>                                  
+                                        <th>Leave Date</th>                                                             
+                                        <th >Leave Message</th>
+                                        <th >Status</th> 
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for leave in leaves %}
+                                        <tr>
+                                            <td>{{leave.created_at}}</td> 
+                                            <td>{{leave.leave_date}}</td>    
+
+                                            <td style='max-width:8rem; text-overflow:ellipsis; overflow:hidden'>{{leave.leave_message}}</td>
+                                            {% if leave.status == 0 %}
+                                            <td><span class="badge badge-secondary p-2">Sent</span></td>
+                                            {% elif leave.status == 1 %}
+                                            <td><span class="badge badge-danger p-2">Rejected</span></td>                                                                                 
+                                            {% else%}
+                                            <td><span class="badge badge-success p-2">Approved</span></td>                                                                                
+                                            {% endif %}
+                                        </tr>
+                                    {% endfor %} 
+                                    
+                                </tbody>
+                            </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+{% endblock content %}
+
+
